@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.linuxtools.docker.ui.buildDockerImageLaunchConfigurationType">
+    <stringAttribute key="dockerConnection" value="mydockerdaemonconn"/>
+    <stringAttribute key="dockerfileName" value="DockerFile"/>
+    <stringAttribute key="repoName" value="prujava2023dockerimagev1"/>
+    <stringAttribute key="sourcePathLocation" value="/RepasosyPracticas2023"/>
+    <booleanAttribute key="sourcePathWorkspaceRelativeLocation" value="true"/>
+</launchConfiguration>

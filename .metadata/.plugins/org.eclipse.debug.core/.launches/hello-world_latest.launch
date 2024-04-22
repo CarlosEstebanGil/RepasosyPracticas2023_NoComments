@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.linuxtools.docker.ui.runDockerImageLaunchConfigurationType">
+    <booleanAttribute key="allocatePseudoTTY" value="false"/>
+    <booleanAttribute key="autoRemove" value="false"/>
+    <stringAttribute key="command" value="/hello "/>
+    <stringAttribute key="connectionName" value="mydockerdaemonconn"/>
+    <stringAttribute key="creationDate" value="2023-08-18 15:58:09"/>
+    <stringAttribute key="entryPoint" value=""/>
+    <listAttribute key="envVariables"/>
+    <stringAttribute key="imageId" value="sha256:9c7a54a9a43cca047013b82af109fe963fde787f63f9e016fdc3384500c2823d"/>
+    <stringAttribute key="imageName" value="hello-world:latest"/>
+    <booleanAttribute key="interactive" value="false"/>
+    <mapAttribute key="labels"/>
+    <listAttribute key="links"/>
+    <booleanAttribute key="privileged" value="false"/>
+    <booleanAttribute key="publishAllPorts" value="true"/>
+    <listAttribute key="publishedPorts"/>
+    <booleanAttribute key="readonly" value="false"/>
+    <listAttribute key="volumes"/>
+</launchConfiguration>

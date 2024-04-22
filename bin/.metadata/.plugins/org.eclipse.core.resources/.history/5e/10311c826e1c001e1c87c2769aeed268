@@ -1,0 +1,522 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;		// Me anoto los TODO xa realizar ( si son TODO posta es xq deberia hacerlos y no obviarlos , sino uso TO-DO xa lo los opcionales )
+import java.util.List;
+import java.util.stream.Collectors;
+
+// Learnings grales ( extra code) : 
+	// tecnica siempre probar mas basico e ir de < a >!!! **vá (este es un ejemplazo)		 ( debuggear, googlear, caso simple xa probar, preg a la IA etc sirve/suma )
+	// Pensar en voz alta ayuda. meter comentarios en mi codigo q es xa pensar tmb ayuda a razonarlo bien.
+	// CLAVE: PRIMERO DISEÑAR EN HOJA! TODO. Cualquier algoritmo/ito xa pensar. precond siempre anotar coloquial analisis pseudo cod o idea antes de empezar algo! siempre!
+	// -> NO EMPEZAR A CODEAR UN ALGORITMO SI ES XA PENSAR Y NO LO TENGO CLARO DE ANTEMANO. ( y si se complica o x lo gral siempre si hay tiempo , evaluar <>s alternativas)
+	//	( siempre puedo impl el caso "ideal" pero luegodebo prever todos los <>s inputs, [ ent <>s tratamientos ] [ent <>s salidas ej un msje q no se puede, etc] )
+	// BUENAS PRACTICAS. PENSAR EN VOZ ALTA. NO AUTO BLOQUEO. SIN HOJA. Q LABURE EL BOCHO. ESFUERZO PERO TRANQUI A SU VEZ. COMENTAR TMB AYUDA . 
+	// USAR T O D O xa lista de pends asi que evitarlo como comentarios en mi code. y ojo sigo siendo muy perfeccionista y vueltero. cuando +o- me acomode ahi si por 
+	//			cronometro y objetivc y TDD etc. ( me vuelve muy vueltero en generalizar todo , ojo, si poco tiempo ent no se.. depende.. saber manejar eso )
+	// En esta clase de ejemplos scrollear que hay muchos learnings de configuracion de eclipse tmb xa customizar mis cosas xa > comodidad , prolijidad , performace o 
+	// recordarme tdd objetivos input outpu osea como pensar ( xq SIEMPRE EN T ODO LO QUE HAGA DEBO ARRANCARLO CON LA TECNICA BUENAS PRACTICAS CORRECTAS (ya sea prog, 
+	// viola, tango, vida, etc)
+	// si razono al programar no me embarullo!!!) siempre foco pilas esfuerzo nunca bocho vago es la CLAVE !!!!!!!!!!!!!!! 
+	// (ver q uso CLAVE como ancla xa <>s Obs mias importantes, siempre).
+
+// Nueva plantilla final q agrupa a todas las otras: pongo abc + (ctrl + spc) y PLANTILLA COMPLETA XA EMPEZAR UN NUEVO METODO!! Vers final ( abc + autocomplete y listo!) 
+// PLANTILLA ANALISIS COLOQUIAL SIEMPRE Y ANTES QUE CODEAR CUALQUIER COSA.  ( Y Objetivo claro. y enfoque TDD (lo min q cumpla) )
+// ----------------------------									( *** usarlo tmb xa Interfases ya q new_java files context sirve xa todo new file rel c/java )
+	// ( y tmb modifiqué el new_class a mi gusto pero este se hace desde windows -> preferences -> java -> code style -> code templates -> code -> new_files (edit )***) 
+																				// 	(se hace ahi xq es xa q el IDE lo ejec auto desde xej: menú: file -> new -> class)
+										// mi custom template ( orig modif ):
+										// ------------------
+
+										// ${package_declaration}
+										
+										// /**
+										//  * 	Description of ${file_name}
+										//	* 
+										//	* 
+										//	*	@author 	 ${user}
+										//	* 
+										//	*	@version	 ${date} ${time}
+										//	* 
+										//	*	@see
+										//	*/
+											
+										//	${type_declaration}
+
+										// --------------------------------------
+		//ej:  Analisis Coloquial (idea gral de la impl ):	la idea es .. bla bla .. 
+		//--
+		//		-> 	Objetivo: salida:  1 array de misma dim de los vecs en cuanto a cols y cant de vecs como filas (ves, si pienso asi y bn se vé h' una impl generica),
+		//									cuyos elems son la transf delos valores de los vecs de entrada pero acomodados por filas en esta matriz qlos agrupa como mat.
+		//					  entrada: 2 vecs cuyos elems tmb son vecs de elems
+		//					  proceso: recorro cada elem(qson vectores tmb), del vec de entrada. Por elem(vec) del gral, en ese bucle recorro sus cols o elems y los..ETC 
+
+		// ____________________________________
+		//	(*planti) plantilla limpia 					( xa copiar y pegar: ) Nooo mejor ya hice un template: planti + ctrl + spc (ide autocomplete) (*expli)
+		// 	__________----------------__________								y tmb hice uno xa la desc cabecera del metodo con fecha autor y description 
+		//	Analisis Coloquial (idea gral de la impl ) -> Objetivo:  	   		pero no lo hice custom sino que modifiqué el que viene x default : pasos :
+		// 																		Saber q xa insertar un metodo el template x defecto de java xa esta accion se llama 
+		//			salida:  													private_method ( asi q si lo escribo + ctrl + space (autocomplete) lo tengo)  
+		//			entrada: 													y saber q esto está en : 
+		//			proceso:													windows - preferences - java - editor - content assist - templates
+		//		  			  													(Y DEBO EDITARLO XA TILDAR EL CHECK DE AUTO-INSERT (apagado x default))
+		// 	____________________________
+
+// https://www.w3resource.com/java-exercises
+
+// New (code learnings) from estos ejercicios: (	Obs: los dejo en el code, y como shortcut busca (**L) en el documento xa ver cada learning en su lugar	)
+
+//		Indice de learnings ( hiper Resu ) :
+//		1. Vecs o Arrs (no coll) si o si se init c/un tam fijo (max)! y no se pueden ni redimensionar!, ni sumar mas elems salvo copy a 1 arr new > o con collections.
+//		2. Si voy a necesitar ref a pos concretas en los arrs de in o en el/los de out ent SIEMPRE recorrerlos c/un for c/indices xqeso yame lleva un cont xa (f,c) 
+//		3. 
+
+
+public class Jse0001_varios_Full_Practicas2023 { //Obs: las practicas implementarlas mejor x cada ejercicio un metodo del ejercicio, asi template o pruebas junit + adel.!
+
+	public static void main(String[] args) {
+		
+		Jse0001_varios_Full_Practicas2023 ejsInstance = new Jse0001_varios_Full_Practicas2023();
+		
+		// Practicas from : https://w3resource.com/java-exercises/
+
+		// A) java-exercises/basic/index1.php :
+	
+			//A.154)	
+				//ejsInstance.vecOfVecsToArray();  // 		( Obs: A.154 es de esta url del punto A el ejercicio nro 154 )  
+		
+			//A.155)	
+				//ejsInstance.rowsByColsSwitchArray();
+			
+			//A.159
+				// ejsInstance.findKGreatestNumbersInArray();	// TODO : Estos metodos deben recibir el array, el k, etc como parametros!! (en todos los ejs q hice falta!!)
+
+			//A.162
+				ejsInstance.findNumbersGreaterThanAverageInIntArray();
+	}
+
+	//A.154) 
+		
+	public void  vecOfVecsToArray() {
+		
+
+		/** (TDD)
+		*
+		*	Analisis / Objetivo: este ya lo comente x dentro.. me da paja pero los proximos los comento de una acá.. 
+		*	Entrada:
+		*	Salida:
+		*	Proceso / PseudoCode: 
+		*/
+		
+		//BASIC 2: ->	https://www.w3resource.com/java-exercises/basic/index1.php
+
+		//	154. Write a Java program to print the contents of a two-dimensional Boolean array where t represents true and f represents false.
+		//
+		//	ex:
+		//		array = {	{true, false, true}, {false, true, false}	};		//1 dim 
+		//		Expected Output : 		
+		// 							t f t 										//2 dim (2x2)
+		// 							f t f
+		
+		//boolean[] bArr = {	new []boolean, new []boolean	};	// tecnica siempre probar mas basico e ir de < a >!!! **viene (este es un ejemplazo)
+		//pruebo lo simple:
+		//boolean [] bArr = { true, false};	<- Funciona lo + basico! ent:
+		//joya ahora si:
+		boolean[][] bArr = {	{true, false,true },{false,true, false}	}; // array de arrays! = matriz!
+
+		//		(**L)earning: En Java, los arreglos (arrays) tienen un tamaño fijo que se establece al momento de su creación. Si defines un arreglo de tipo char de tamaño 2, 
+		//		no puedes agregar automáticamente un nuevo elemento más allá de ese tamaño sin redimensionar el arreglo.
+		//
+		//		Para lograrlo,tendrías q crear un nuevo arreglo c/un > tamaño y copiar los elems existentes al nuevo arr.Afortunadamente, Java proporciona la clase ArrayList 
+		//		que es una implementación de una lista redimensionable, lo que facilita agregar nuevos elementos sin preocuparte por redimensionar manualmente el arreglo.
+
+ 		char[][] chrVec = new char[2][3];
+		char chrNewElem;
+		
+		// (**L)earning: Si voy a necesitar trabajar con indices Entonces Recorrerlos con indices!
+		
+		//		for (boolean[] bs : bArr) {
+		//			for (boolean bsElem: bs) {	// Recorre cada subvector internamente, osea no recorre los elems del vec contenedor ppal  
+		//					chrNewElem = boolToCharIndicator(bs);		//  (sino los elems x cada vec interno de 3 elems c/u en este caso).
+		//				} 
+		//			}
+		//		}
+
+		// (**L)earning: PRIMERO MI ANALISIS EN COLOQUIAL PARA EL ALGORITMITO:       ( SIEMPRE ANALISIS COLOQUIAL 1ERO!!! ) 
+		// Analisis Coloquial (idea gral de la impl ):	 
+		//
+		//		-> 	Objetivo: salida:  1 array de misma dim de los vecs en cuanto a cols y cant de vecs como filas (ves, si pienso asi y bn se vé h' una impl generica),
+		//									cuyos elems son la transf delos valores de los vecs de entrada pero acomodados por filas en esta matriz qlos agrupa como mat.
+		//					  entrada: 2 vecs cuyos elems tmb son vecs de elems
+		//					  proceso: recorro cada elem(qson vectores tmb), del vec de entrada. Por elem(vec) del gral, en ese bucle recorro sus cols o elems y los 
+										//agrego en el iContActual (indice de fila) tmp q llevo xa "agregar" filas a mi mat , en ese icontfila y en el icol del cont del 
+		//											bucle q esta recorriendo los elems del vec actual (xq c/elem puede verse como una col ,es lo mismo el concepto en mat) 
+		//											asi q en el bucle de por cada elem (char) de cada vec interno (xa cada vec interno) tengo c/elem de estos (col xa mat)
+		//											y el indice icontfilasmattmp q lo llevo en el bucle de afuera q recorre el vec ppal contenedor ,x lo q tengo el elem 
+		//											para la mat final y llevo contada y tengo la pos xa la mat final xa agregarlo, en este caso, me pide una transformacion
+		//											de cada elem ( son boolean y los quiere a 1 char q sea 't' o 'f' segun el boolean sea true o false. creo mi func de transf
+		//											y agrego finalmente el elem transformato a la mat salida en la pos fila,col q corresponde (xq ya tengo todo) !! FIN-
+		// (**Learning:	Como voy a necesitar indices x necesitar referirme a posiciones concretas(en el de salida) ent SIEMPRE conviene usar indices xa recorrer los de 
+		//				entrada xq necesito sus indices; sino tomaria cada elem de entradas con 2 foreach pero no sabria donde (en q pos) poner en la salida xq no llevo 
+		//				conts de filas y cols de nada ) 
+		
+		/*esta forma de recorrer no me sirve si voy a necesitar trabajar con indices (si necesitaré referenciar indices concretos ent necesitaré llevar 
+			contadores x cada indice mejor un for con index asi ya auto los iActuales  
+			for (boolean bsElem: bs) {	// Recorre cada subvector internamente, osea no recorre los elems del vec contenedor ppal  
+					chrNewElem = boolToCharIndicator(bs);		//  (sino los elems x cada vec interno de 3 elems c/u en este caso).
+						
+				} 
+			}
+		*/
+		// recuerdo vars:	
+		
+		//  	boolean[][] bArr 	= {	{true, false,true },{false,true, false}	}; // array de arrays! = matriz!
+		// 		char[][] 	chrVec 	= new char[2][3];
+		// 		char chrNewElem;	
+		// ent: 
+		// Algoritmito :
+					// ..probarlo a ojo yl con JUNIT ( viste q si razono al programar no me embarullo!!!) siempre foco pilas esfuerzo nunca bocho vago es la CLAVE !!!
+		boolean[] subArrActual; 
+		boolean subArrActualBoolElem;
+		for (int i = 0; i < bArr.length; i++) {
+			subArrActual = bArr[i];
+			for (int j = 0; j < subArrActual.length; j++) {
+				subArrActualBoolElem = subArrActual[j];
+				chrNewElem = boolToChar(subArrActualBoolElem);
+				chrVec[i][j]=chrNewElem;
+			}
+		}
+			
+		// TODO deberia testearlo con Junit los proximos, pero este lo recorro con un foreach xa mostrar los rtados x consola y los chequeo a mano ( a ojo ) .. 
+		//	( es mas, voy a hacer un testeo de este ya que tengo la mat de inputs (como vecs of vecs pero no deja de ser una mat) , con elems 
+		//	valores ktes y la salida buscada asi que puedo crear aun mas facil el test case o caso de prueba , con junit (junit 5).    
+		
+		}
+
+	//}
+	
+	
+	public static char boolToChar(boolean b) { // la dejo static como metodo util en gral. incluso deberia sacarlo a una clase de utils de strings xero ya fue
+		return b==true?'t':'f';
+	}
+
+		//	Analisis Coloquial (idea gral de la impl ) -> Objetivo:  	   
+		//
+		//		  			  salida:  
+		//					  entrada: 
+		//					  proceso:  
+
+	
+	/** 
+	* Jul 6, 2023	
+	* Author: Carlos Esteban Gil.-
+	* 
+	* Description:	Write a Java program to print an array after changing the rows and columns of a two-dimensional array.
+					ex: Original Array: 10 20 30
+										40 50 60
+						After changing the rows and columns of the said array:
+										10 40
+										20 50
+										30 60 */
+	//A.155) 
+	
+		public void  rowsByColsSwitchArray() { 
+
+			/** (TDD)
+			*
+			*	Analisis / Objetivo:
+			*	Entrada:
+			*	Salida:
+			*	Proceso / PseudoCode: Basicamente sé la dim del de salida xq es la del de entrada invertidas filas lenght y cols lenght. asi q defino la estructura de
+			*							salida y luego el algoritmo es sencillo, recorro el arr de input , tomo su f y su c y lo almaceno como c,f en el de salida. fin. 
+			*/
+			
+			int[][] inIMat = {{10,20,30},{40,50,60}};					// Obs! outMat es CxF de in!
+			int[][] outIMat = new int[inIMat[0].length][inIMat.length]; // (L) Obs: The length of a 2D array is equal to the number of rows it has.   
+																		// 			The number of columns may vary row to row, which is why the number of rows is used as 
+																		//	     	the length of the 2D array. ( luego yo uso [0] .lenght xq asumo all rows same lenght)
+			printMat(inIMat);
+			for (int i = 0; i < inIMat.length; i++) { //Filas (obtengo c/arr (vec) (elem del arr ppal) )
+				for (int j = 0; j < inIMat[0].length; j++) { //Cols (c/elem final, puntual xa ambas coordendas )
+					outIMat[j][i] = inIMat[i][j];
+				}
+				
+			}
+			printMat(outIMat);
+		}
+	
+		
+		//TODO Ojo podria hacer un imprimir matriz de cualquier tipo de numeros ( usando generics! ) o incluso uno mas general para objetos q tengan toString impl etc..
+		public static void printMat(int[][] iMat ) {
+			System.out.println();
+			 for (int i = 0; i < iMat.length; i++) {
+				for (int j = 0; j < iMat[i].length; j++) {
+					System.out.print(iMat[i][j] + " ");
+					if (j==iMat[i].length-1) System.out.print("\n");
+				}
+			}
+		}
+		
+		//A.159) 
+		
+		/** 
+		* Jul 6, 2023	
+		* Author: Carlos Esteban Gil.-
+		* 
+		* Description:	Write a Java program to find the k largest elements in a given array. Elements in the array can be in any order.
+		* 				ex: if k = 3 and in arr = [1, 4, 17, 7, 25, 3, 100]  then Expected Output: 100 25 17 
+		*/
+		
+		public void  findKGreatestNumbersInArray() {	// La idea es ser + productivo y no tantas opciones aunque si requiere performance o hay tiempo ent ver <>s alternativas.
+			/** (TDD)
+			*
+			*	Analisis / Objetivo: 	obj: Encontrar los k mayores enteros en un array de enteros desordenados
+			*	Entrada: 				in:  un arr de input 
+			*	Salida:  				out: los k int elems mayores del arr de input
+			*	Proceso / PseudoCode: 	alg: op1: puedo ordenar el arr ( con ord burbuja o + simple usando el api collection xa este caso!) y ahi tomar los 1eros 3!. fin.
+			*								 op2: puedo recorrer el arr y tomar el mayor e imprimirlo. pero luego eliminarlo o ponerle sobreescribirle con el numero mas 
+			*											bajo posible xa q no salga mas elegido ( esto puedo laburarlo en una copia del array xa no modif el orig ) y luego
+			*											recorrerlo de nuevo y mismo proced de sacar el mayor y quitarlo o sobreescribirlo xa q no salga yl k veces
+			*								 op1 vs op2: 
+			*											op1: ventajas:	Es mas claro. recorre 1 vez el array para ordenarlo y nada mas. 
+			*															( no recorre k veces ni usa copias en mem ni sistemas raros de overrides etc )
+			*								 Decision: OP1
+			*							
+			*							 Obs: Si me pidieran los k impares mayores. idem pero el alg xa tomar los k impares mayores seria un alg no solo de dame los 
+			*							k elems primeros q son los mayores sino otro recorrer el arr ordenado hasta tomar k elems en ese orden pero q cumplan ser impares.    							
+			*/								 
+
+			//a) in:	
+					
+				int[] iArrIn = {1, 4, 17, 7, 25, 3, 100}; 
+			
+			//b) alg:	
+
+				/* ***** (L)earning:
+				 *  
+				 * 	 Problema:
+				 *	  		Arrays.asList(array)
+				 *	  
+				 *			this can cause the problems in cases when we doesnt need a imutable collection – 
+				 *			especially if it does not work for arrays of primitive type values: int[] array = new int[] {1,2,3,4}; Arrays.asList(array) :: List<int[]> 
+				 *	
+				 *	 Rta interesante pero no funca(la dejo porque xas objetos sirve pero xa tipos primitivos ver la Rta posta q es add 1x1 a una nueva lista de Integers)
+				 *
+				 *		If you don't want to alter the list:										// Saber: No funcan ( la rta estaba mal para primitivos no se puede )
+				 *																					//			( pero la dejo xq xa Objs sirven (creo) .. )
+				 *		List<Integer> list = Arrays.asList(array)
+				 *		But if you want to modify it then you can use this:
+				 *		
+				 *		List<Integer> list = new ArrayList<Integer>(Arrays.asList(ints));
+				 *		Or just use java8 like the following:
+				 *		
+				 *		List<Integer> list = Arrays.stream(ints).collect(Collectors.toList());
+				 *		Java9 has introduced this method:
+				 *		
+				 *		List<Integer> list = List.of(ints);
+				 *		However, this will return an immutable list that you can't add to.
+				 *		
+				 *		You need to do the following to make it mutable:
+				 *		
+				 *		List<Integer> list = new ArrayList<Integer>(List.of(ints));
+				 *
+				 ***********************************************************************************************************
+				 *	  Rta Posta:
+				 ***********************************************************************************************************	
+				 *		There is no shortcut for converting from int[] to List<Integer> as Arrays.asList does not deal with boxing and will just create a List<int[]> 
+				 *			which is not what you want. You have to make a utility method.
+				 *
+				 *		int[] ints = {1, 2, 3};
+				 *		
+				 *		List<Integer> intList = new ArrayList<Integer>(ints.length);
+				 *		
+				 *		for (int i : ints)
+				 *		{
+				 *		    intList.add(i);
+				 *		} 
+				 ***********************************************************************************************************/
+				// imprimo el input , data del ej , x consola:
+				printVec(iArrIn);
+				
+				//alg:
+				
+				//def 1 lista from arr xa trabajar sobre ella con collections.sort que trabaja con listas
+				List<Integer> iList = new ArrayList(iArrIn.length);
+				
+				//cargo a mano la lista con la data del array original ( a mano xq el arr es de tipo primitivos ent el asList no funciona )  
+				for (int i = 0; i < iArrIn.length; i++) {
+					iList.add(iArrIn[i]);
+				}
+			
+				// Ordeno la lista
+				
+				//Collections.sort(iList); 
+				
+				// No funcaba														// SUPER LEARNING CLAVE RECORDAR SIEMPRE ESTO PRESENTE / SABER:
+				
+				//Collections.sort(iList, (x,y)-> (y >= x)?y:x ); // CLAVE:(L) La clave es q espera un comparator osea una impl de este osea la impl de su metodo compareTO  
+																		// 	y el compareTo devuelve un positivo si es mayor o un negativo si es menor!! aca no respetaba
+																		//	esa logica! lo que hacia yo no es dev >0 ==0 ó <0 sino devolver el menor y el comparator 
+																		//	(metodo compareTo) no está pensado de esa forma aunque los tipos que yo devolvia eran compatibles 
+																		//	no respetaba la logica de funcionamiento de como debia implementarse la logica de esa interfaz!!!
+																		// 	X LO TANTO SIEMPRE IMPL LA I Q ESPERA (EL MET DE LA I FUNCIONAL Q ESPERA ) CON LA FIRMA Y CON 
+																		//	LA LOGICA! DEL VALOR DE RTADO QUE DEBO RETORNAR EN CADA CASO!! LA LOGICA LA PUEDO CAMBIAR XA 
+																		//	ESO ESTAN PERO NO LA LOGICA DEL TIPO DE RTA Q ESPERA XA CADA CASO ( VER SIEMPRE LA DOC DE LAS 
+																		//	INTERFACES Y RETURN VALUES XA CADA CASO XA RESPETAR SU LOGICA DE RTA Y ENT DE ACOMPLAMIENTO Y 
+																		//	FUNCIONAMIENTO YA CON ESA MANERA QUE IMPONE!!)
+				//funca
+				Collections.sort(iList, (x,y)-> (y >= x)?1:-1 ); // (L)earning recordar q sort modifica la lista que le paso ( trabaja sobre esta y le reordena la data , 
+										 //			puede xq son objs ent es x ref y sus elems tmb xq son objs integers tmb ) 
+										 //			Osea: En Java, los parámetros de métodos se pasan por valor. Cuando pasas una lista como parámetro, 
+										//					se pasa la referencia a la lista, no una copia de la lista en sí. Esto significa que el método 
+										//					tiene acceso a la misma lista y puede modificar su contenido.
+				
+				//funca:
+				//Collections.sort(iList, (x,y) -> y.compareTo(x)); //(L)earning SUPER LEARNING! SABER: la expr** no funcionaba por lo siguiente!!:
+																	//	El método Collections.sort() espera un comparador que implemente la interfaz Comparator, 
+																	//	que define el método compare() que compara dos elementos y devuelve un valor que indica su 
+																	//	orden relativo. En tu expresión lambda, estás intentando usar una comparación VALIDA PERO 
+																	//	<> A LO Q LA I ESPERA COMO RTA XA DETERMINAR SU RTADO! 
+																	//	(x > y) ? x : y para determinar el mayor de los dos elementos, pero eso no es compatible 
+																	//	con la interfaz Comparator.En esta expresión lambda, utilizamos el método compareTo() de la 
+																	//	clase Integer para comparar los elementos en orden descendente. La comparación y.compareTo(x) 
+																	//	devuelve un valor negativo si y es menor que x, lo cual indica que y debería ir antes que x en la lista.
+
+																	// Recuerda que para que esta sentencia funcione correctamente, iList debe ser una lista de  
+																	//		objetos Integer (por ejemplo, List<Integer>)   
+				
+				System.out.println("imprimo la lista ordenada: ");
+				for (Integer elem : iList) System.out.print(elem + " ");
+			//c) out: Expected Output: 100 25 17  						( TODO hacer un test de unidad tmb para este ejercicio! ) 
+															// ( TODO: siempre deberia dar robustez ante todo caso de inputs ej k > arr.lenght , k=-1 etc ) !!
+				final int K=3;
+				System.out.println(" Los " + K + " enteros mayores de la lista son: ");
+				for (int i = 0; i < K; i++) System.out.print(iList.get(i) + " ");
+				
+		} 
+
+		// 162)	162. Write a Java program that finds numbers greater than the average of an array.
+		
+		/** 
+		* Jul 6, 2023	
+		* Author: Carlos Esteban Gil.-
+		* 
+		* Description:	
+		* 
+		* @param parametro1 Descripción del primer parámetro.
+		* @param parametro2 Descripción del segundo parámetro.
+		* @return Descripción del valor de retorno.
+		* @throws ExcepcionTipo Descripción de la exception
+		* @see
+		* 
+		* Observaciones:
+		* 
+		* 	things to improve (if there is time) -> 
+		* 
+		* (CLAVE) 
+		* 	TDD - 1ero caso ideal yl <>s inputs posibles -alternativas -Robustez.
+		*/
+
+		public void findNumbersGreaterThanAverageInIntArray() {
+			/** (TDD)
+			*
+			*	Analisis / Objetivo:	obj: 
+			*	Entrada:				in:  
+			*	Salida:					out: 
+			*	Proceso / PseudoCode: 	alg: 
+			*/
+
+			//a) in:	
+
+			//b) alg:
+
+			//c) out:
+
+		}
+		
+		
+
+		//TODO Ojo podria hacer un imprimir un vector de cualquier tipo de numeros ( usando generics! ) o incluso + gral de objs 
+		//			e  incluso el mismo printMat q funque para una sola dim si se puede sino ya fue 
+		public static void printVec(int[] iVec) {
+			System.out.println();
+			for (int i = 0; i < iVec.length; i++) {
+				System.out.print(iVec[i] + " ");
+			if ( i == ( iVec.length -1) ) System.out.print("\n");
+			}
+		}
+		
+// ------------ Cosas extras:
+				
+		/* -----------------
+		 * SHORTCUTS CUSTOMS para insert comment mios con key combination custom y me tmb!!				(*viene)   
+		 * -----------------
+		 * PASOS:
+		 * -----
+		 * En Eclipse, ve al menú "Window" y selecciona "Preferences" (o "Preferencias" en sistemas macOS).
+		 * 
+		 * En la ventana de preferencias, expande la categoría "Java" y selecciona "Editor" y luego "Templates" (o "Plantillas").
+		 * 
+		 * En la lista de plantillas, haz clic en "New" (o "Nuevo") para crear una nueva plantilla.
+		 * 
+		 * En el campo "Pattern" (o "Patrón"), ingresa el comentario personalizado que deseas insertar. Puedes incluir información dinámica utilizando variables
+		 * especiales, como ${user} para el nombre del autor o ${date} para la fecha  actual.
+		 * 
+		 * En el campo "Name" (o "Nombre"), ingresa un nombre descriptivo para la plantilla.
+		 * 
+		 * En el campo "Context" (o "Contexto"), selecciona "Java" para limitar la plantilla a ser utilizada solo en archivos Java.
+		 * 
+		 * Haz clic en "OK" para guardar la plantilla.
+
+		 * Hasta ahi todo bien, lo sig no!: ------ 
+		 * 
+		 * Ahora, ve a la pestaña "Keys" (o "Teclas") en la ventana de preferencias.
+		 * 
+		 * En el campo "Filter text" (o "Texto de filtro"), ingresa un texto corto que desees utilizar como atajo, por ejemplo, "cmnt".
+		 * 
+		 * Haz clic en el campo "Binding" y presiona las teclas que deseas usar como atajo, por ejemplo, "Ctrl + Alt + C".
+		 * 
+		 * En el campo "When" (o "Cuándo"), selecciona "In Windows" o "In Dialogs and Windows" para habilitar el atajo en el editor de código.
+		 * 
+		 * Haz clic en "Apply" (o "Aplicar") y luego en "OK" para guardar los cambios.
+		 * 
+		 * ---------- 
+		 * seguir desde aca (esto si) : ( luego de hyaber creado el temlate lo inserto escribiendo su nombre y con ctrl + espace xa q el editor de eclipse lo autocomplete
+
+		 * 	Mis disculpas por la confusión. Parece que hay una confusión en la terminología. La opción "Insert Template" no está disponible directamente en Eclipse sin complementos adicionales. Lamento la información incorrecta proporcionada anteriormente.
+
+			Para crear un atajo para insertar una plantilla personalizada en Eclipse sin complementos adicionales, puedes seguir estos pasos:
+			
+			Abre Eclipse y ve al menú "Window" (Ventana) en la barra de navegación superior.
+			Selecciona "Preferences" (Preferencias) en el menú desplegable. Esto abrirá la ventana de preferencias de Eclipse.
+			En la ventana de preferencias, expande la categoría "Java" en el panel izquierdo y selecciona "Editor" debajo de ella.
+			En la lista de opciones del editor, haz clic en "Templates" (Plantillas).
+			Aparecerá una lista de plantillas de código existentes. Haz clic en el botón "New" (Nuevo) para crear una nueva plantilla.
+			En el campo "Pattern" (Patrón), escribe el código de tu plantilla personalizada. Puedes utilizar variables como ${var}, ${word_selection} o ${line_selection} para hacerla más flexible.
+			En el campo "Name" (Nombre), proporciona un nombre descriptivo para tu plantilla.
+			Haz clic en "OK" (Aceptar) para guardar la plantilla.
+			Para insertar la plantilla personalizada utilizando un atajo, puedes seguir estos pasos adicionales:
+			
+			Abre el archivo en el editor de Java donde deseas insertar la plantilla.
+			Escribe el nombre de la plantilla que creaste anteriormente. Por ejemplo, si el nombre de la plantilla es "mytemplate", escribe "mytemplate".
+			Presiona la combinación de teclas "Ctrl + Espacio" para activar la función de autocompletado de Eclipse.
+			En la lista de opciones que aparece, selecciona la plantilla deseada y presiona "Enter" para insertarla en el código.
+			No hay una opción de atajo dedicada para insertar plantillas directamente en Eclipse sin complementos adicionales. Sin embargo, puedes usar el autocompletado de Eclipse presionando "Ctrl + Espacio" para acceder rápidamente a tus plantillas personalizadas y seleccionar la que deseas utilizar. 
+		 */
+	
+	
+	// Saber q xa insertar un metodo el template x defecto de java xa esta accion se llama private_method ( asi q si lo escribo + ctrl + space (autocomplete) lo tengo)
+	//	y saber q esto está en windows - preferences - java - editor - content assist - templates (Y DEBO EDITARLO XA TILDAR EL CHECK DE AUTO-INSERT (apagado x default)) 
+	/** 
+	* Jun 24, 2023	
+	* Author: Carlos Gil
+	* 
+	* Description:	
+	* 
+	*/
+	private void name() {
+		
+	}
+	
+	}

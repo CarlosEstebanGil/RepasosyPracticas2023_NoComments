@@ -1,0 +1,7 @@
+dockerComposeInstallDir=C\:\\Program Files\\Docker\\Docker\\resources\\bin
+dockerMachineInstallDir=C\:\\ProgramData\\chocolatey\\bin
+eclipse.preferences.version=1
+filterWithLabels=false
+lastRegistryAccount=[username\=charlyestebangil, email\=carlosestebangil@gmail.com, getServerAddress()\=https\://index.docker.io]
+showAllContainers=true
+showAllImages=false

@@ -1,0 +1,8 @@
+FROM openjdk
+
+COPY c:\!_CARLOS ESTEBAN GIL - VIDA COMPLETA ACTIVIDADES - NO FOTOS\SISTEMAS\CODIGO FUENTE\server - side\java\works-spaces\j2se\eclipse-workspace-PracticasRepasos2023\RepasosyPracticas2023\src\main\java\Jse0001_varios_Full_Practicas2023.java RepasosyPracticas2023./Jse0001_varios_Full_Practicas2023.java RepasosyPracticas2023/
+WORKDIR Jse0001_varios_Full_Practicas2023
+RUN mkdir -p bin
+RUN javac -d bin ./Jse0001_varios_Full_Practicas2023.java
+WORKDIR bin
+CMD ["java","Jse0001_varios_Full_Practicas2023"]

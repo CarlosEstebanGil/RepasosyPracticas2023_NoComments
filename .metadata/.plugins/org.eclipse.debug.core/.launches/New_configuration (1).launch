@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.linuxtools.docker.ui.runDockerImageLaunchConfigurationType">
+    <booleanAttribute key="allocatePseudoTTY" value="false"/>
+    <booleanAttribute key="autoRemove" value="false"/>
+    <listAttribute key="binds"/>
+    <stringAttribute key="command" value=""/>
+    <stringAttribute key="connectionName" value="mydockerdaemonconn"/>
+    <stringAttribute key="cpuPriority" value="1024"/>
+    <booleanAttribute key="enableLimits" value="false"/>
+    <listAttribute key="envVariables"/>
+    <booleanAttribute key="interactive" value="false"/>
+    <mapAttribute key="labels"/>
+    <listAttribute key="links"/>
+    <stringAttribute key="memoryLimit" value="512"/>
+    <stringAttribute key="networkMode" value=""/>
+    <booleanAttribute key="org.eclipse.debug.core.ATTR_FORCE_SYSTEM_CONSOLE_ENCODING" value="false"/>
+    <booleanAttribute key="privileged" value="false"/>
+    <booleanAttribute key="publishAllPorts" value="true"/>
+    <listAttribute key="publishedPorts"/>
+    <listAttribute key="volumes"/>
+    <listAttribute key="volumesFrom"/>
+</launchConfiguration>

@@ -1,0 +1,7 @@
+FROM openjdk
+COPY src RepasosyPracticas2023
+WORKDIR RepasosyPracticas2023
+RUN mkdir -p bin
+run javac -d bin ./Jse0001_varios_Full_Practicas2023.java
+WORKDIR bin
+CMD ["java","Jse0001_varios_Full_Practicas2023"]
